@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        label,input,textarea{
+            display: block;
+            resize: none;
+        }
+        b{
+            text-decoration: underline;
+            margin-bottom:50px;
+            display: block;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#sg").click(function(){
+                var email = $("#email").val();
+                var subject = $("#subject").val();
+                var suggest = $("#suggest").val();
+                $.ajax({
+                    method:'post',
+                    url: 'suggestion/suggest.php?em='+email+'&sub='+subject+'&sug='+suggest+'',
+                    success:function(data){
+                        //$("p").append(data);
+                        $("p").append("Thanks for suggestion");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <p></p>
+    <b> Suggestion</b>
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email" required>
+    <label for="subject">Subject</label>
+    <input type="text" name="subject" id="subject" required>
+    <label for="suggestion">Suggestion</label>
+    <textarea name="suggestion" id="suggest" cols="30" rows="10" required></textarea>
+    <button id="sg">Suggest!</button>
+</body>
+</html>
