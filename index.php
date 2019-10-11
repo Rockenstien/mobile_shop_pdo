@@ -3,6 +3,7 @@ require_once('includes/dbconnect.php');
 //Currently login bug
 //if no or 0 user bug
 require_once('includes/session.php');
+require_once('login/usercheck.php');
 if(!$cs->redirect())  header("location:login.php"); //got false, converted true to redirect to login because can't find any session
 ?>
 <!DOCTYPE html>
@@ -87,7 +88,12 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
     <div>
         <ul>
             <li><a href="index.php">Dashboard</a></li>
-            <li><a href="viewcart.php">View Cart</a></li>
+            <?php if($user->retUsertype() == "admin"){
+                       echo "<li><a href=viewuserinfo.php>View User Info</a></li>";                
+            }
+            else{
+                    echo "<li><a href=viewcart.php>View Cart</a></li>";
+            }?>
             <li><a href="vieworders.php">View All orders</a></li>
             <li><a href="suggestion.html">Suggest</a></li>
         </ul>
