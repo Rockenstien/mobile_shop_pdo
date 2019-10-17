@@ -1,77 +1,8 @@
-$(".cart_add").click(function(){
-            var mval = $(this).val();
-            if($(this).text() == "Add"){
-                
-                $.ajax({
-                    method:'post',
-                    url:'cart/add2cart.php?val='+mval+'&control=add',
-                    success:function(data){
-                        $("b").empty();
-                        $("b").append(data);
-                        $(this).text("Remove");
-                    }
-                });
-            }
-            else if($(this).text() == "Remove"){
-                 $(this).text("Add");
-                 $(this).text("Remove");
-                $.ajax({
-                    method:'post',
-                    url:'cart/add2cart.php?val='+mval+'&control=remove',
-                    success:function(data){
-                        $("b").empty();
-                        $("b").append(data);
-                        $(this).text("Add");
-                    }
-                });
-            }    
-        });
-
-
-
-
-
-
-        $.ajax({
-                    method:'post',
-                    url:'cart/add2cart.php?val=Na&control=check ',
-                    success:function(data){
-                        //alert("done");
-                        $("#m"+i).text("Add");
-                        $("b").append(i);
-                        var ar = data.split(',');
-                        jQuery.each(ar, function(index, item) {
-                            if(vals == item){
-                                set = 1; //$("#m"+i).text("Remove");
-                            } 
-                        });
-                    }
-                });
-
-
-
-
-
-
-
-                while($res = $query->fetch()){
-                
-                if(!empty($res)){
-                    echo"<tr>";
-                    echo"<td>".$res['b_Name']."</td>";
-                    echo"<td>".$res['mobile_name']."</td>";
-                    echo"<td> <img src=".$res['pic']." alt=?> </td>";
-                    echo"<td>".$res['description']."</td>";
-                    echo"<td>".$res['man_date']."</td>";
-                    echo"<td>".$res['warranty']." months</td>";
-                    echo"<td>".$res['stock']." left!</td>";
-                    echo"<td>".$res['discount']."%</td>";
-                    echo"<td> &#8377;".$res['mrp']."</td>";
-                    echo"<td> <button class=cart_change id=m".$id." value='".$res['mobile_name']."'>Remove</button></td>";
-                    echo"</tr>";
-                    $id++;
-                }
-                else{
-                    echo "<td colspan=10>hello</td>";
-                }
-            }
+echo"<select id=selbid".$id." class=\"tdispi tdisp".$id."\" required>";
+                echo "<option value=>Please Select</option>";
+                $query = $con->connect()->prepare("SELECT * FROM `mobile_brands` WHERE 1");
+                $query->execute();
+                            while($res = $query->fetch()){
+                                echo "<option value=".$res['b_id'].">".$res['b_Name']."</option>";
+                            }
+                echo"</select>";

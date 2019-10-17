@@ -9,4 +9,5 @@ class usercheck{
     }
 }
 $user = new userCheck();
+$aon = ($user->retUsertype() == "admin") ? true : false;
 ?>
