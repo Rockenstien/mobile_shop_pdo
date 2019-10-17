@@ -249,7 +249,9 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                 if(!$aon){
                     echo"<td> <button class=cart_change id=m".$id." value='".$res['mobile_name']."'>Add</button></td>";    
                 }
-                echo"<td><button class=emc id=edit_mob".$id.">Edit</button</td>";
+                else if($aon){
+                    echo"<td><button class=emc id=edit_mob".$id.">Edit</button</td>";
+                }
                 echo"</tr>";
                 echo "<input type=hidden value=".$id.">";
                 $id++;
