@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`roxo`@`localhost` PROCEDURE `add_cart` (IN `cid` INT(225), IN `mid` INT(225))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_cart` (IN `cid` INT(225), IN `mid` INT(225))  NO SQL
 INSERT INTO cart (c_id,m_id) VALUES (cid,mid)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_email` ()  NO SQL
@@ -35,16 +35,16 @@ SELECT email, sec_question from credentials$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fetch_cred` ()  NO SQL
 SELECT email,pass FROM credentials$$
 
-CREATE DEFINER=`roxo`@`localhost` PROCEDURE `fetch_mobiles_brand` ()  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `fetch_mobiles_brand` ()  NO SQL
 SELECT mobile_data.*, mobile_brands.b_Name  FROM mobile_data INNER JOIN mobile_brands on mobile_data.b_id = mobile_brands.b_id$$
 
-CREATE DEFINER=`roxo`@`localhost` PROCEDURE `get_cartid` (IN `mid` BIGINT(255), IN `cid` BIGINT(255))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_cartid` (IN `mid` BIGINT(255), IN `cid` BIGINT(255))  NO SQL
 SELECT cart_id from cart WHERE m_id=mid and c_id = cid$$
 
-CREATE DEFINER=`roxo`@`localhost` PROCEDURE `get_cid_seca_secq` (IN `mail` VARCHAR(50))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_cid_seca_secq` (IN `mail` VARCHAR(50))  NO SQL
 SELECT c_id, sec_ans, sec_question from credentials where email = mail$$
 
-CREATE DEFINER=`roxo`@`localhost` PROCEDURE `get_pid` (IN `mobname` VARCHAR(50))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_pid` (IN `mobname` VARCHAR(50))  NO SQL
 SELECT m_id FROM mobile_data WHERE mobile_name = mobname$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `store_cred` (IN `mail` VARCHAR(50), IN `pas` VARCHAR(100), IN `quest` VARCHAR(50), IN `ans` TEXT)  NO SQL
