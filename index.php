@@ -128,7 +128,7 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                     $("#wp" +i).text($("#wpi" +i).text().match(/(\d+)/)[0]);
                     $("#stock" +i).text($("#stocki" +i).text().match(/(\d+)/)[0]);
                     $("#discount" +i).text($("#discounti" +i).text().match(/(\d+)/)[0]);
-                    $("#mrp" +i).text($("#mrpi" +i).text().match(/(\d+\,\d+)/)[0]);
+                    $("#mrp" +i).text($("#mrpi" +i).text().match(/(\d+\,\d+)|(\d+)/)[0]);
                     //####################################
                     //Assigning above values to variable to send
                     //$("selbid"+i+" option[value='"+bid+"']").attr("selected","selected");
