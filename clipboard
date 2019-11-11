@@ -1,8 +1,0 @@
-echo"<select id=selbid".$id." class=\"tdispi tdisp".$id."\" required>";
-                echo "<option value=>Please Select</option>";
-                $query = $con->connect()->prepare("SELECT * FROM `mobile_brands` WHERE 1");
-                $query->execute();
-                            while($res = $query->fetch()){
-                                echo "<option value=".$res['b_id'].">".$res['b_Name']."</option>";
-                            }
-                echo"</select>";
