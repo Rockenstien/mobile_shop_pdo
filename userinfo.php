@@ -34,6 +34,8 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
             echo"</tr>";
             
         }
+        echo "<pre>";
+        var_dump($_SESSION);
         ?>
     </table>
 </body>
