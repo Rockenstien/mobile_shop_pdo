@@ -11,13 +11,14 @@ if($cs->redirect()) header("location:index.php");   //true, because can find ses
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="css/stylelogin.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+   
     <script>
     $(document).ready(function (){
-        $("#btn").click(function(){
-            var email = $('#t1').val();
-            var password = $('#t2').val();
+        $(".btn").click(function(){
+            var email = $('#email').val();
+            var password = $('#pass').val();
             if ($("#check").is(":checked")) {  
                 var check = "on";    
             } else {
@@ -30,13 +31,15 @@ if($cs->redirect()) header("location:index.php");   //true, because can find ses
                 success:function(data){
                     if(data){
                         $("p").empty();
-                        $("p").append("Loggin you in");
+                        $("#loading").addClass("spinner-border");
                         setTimeout(function(){
                             $(location).attr('href', 'index.php');}, 1000);
                             }
                     else{
                         $("p").empty();
-                        $("p").append("Wrong credentials");
+                        $("p").removeClass();
+                        $("p").addClass("alert alert-danger");
+                        $("p").append("Wrong credentials!!! Try Again");
                     }
                    
                 }
@@ -46,16 +49,38 @@ if($cs->redirect()) header("location:index.php");   //true, because can find ses
     </script>
 </head>
 <body>
-
     <p></p>
-    <div>
-        <input type="text" name="email" id="t1" placeholder="Email">
-        <input type="password" name="pass" id="t2" placeholder="pass">
-        <input type="checkbox" name="check" id="check">Remember Me?
-       <div id=bottom>
-            <input type="button" id="btn" value="login">
-            <a href="signup.php">New User?</a>
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                Login
+            </div>
+            <div class="card-body">
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="pass">Password</label>
+                <input type="password" class="form-control" id="pass" placeholder="Password">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="check">
+                <label class="form-check-label" for="check">Remember Password?</label>
+            </div>
+            <button type="submit" class="btn btn-primary ">Submit</button>
+            <div id="loading" class="text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="alert alert-warning fade show" role="alert">
+            <strong>Holy guacamole!</strong> You should create an account if you don't have one, from <a class="alert-link" href="signup.php">here.</a>
+        </div>
+        <div class="card-footer text-muted">
+            Created by Paras Kumar &copy; 
         </div>
     </div>
+    
 </body>
 </html>

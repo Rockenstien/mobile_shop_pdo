@@ -44,7 +44,8 @@ class lls extends dbconnect{
 
 
     public function signup(){
-            $this->query = parent::connect()->prepare("CALL store_cred(?,?,?,?)");
+            
+        $this->query = parent::connect()->prepare("CALL store_cred(?,?,?,?)");
             $this->query->execute([$this->mail,$this->pass,$this->secques,$this->secans]) or die();
             //mysqli_query($con,"CALL store_cred('$mail','$pass','$sec_quest')") or die(mysqli_error($con));
             if($this->check=="on")
