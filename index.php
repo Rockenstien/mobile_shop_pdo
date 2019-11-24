@@ -46,9 +46,10 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
     <script>
      
     $(document).ready(function(){
-        
+        $( function(){
+            $("#dashboard").addClass("active");
+        });
         $( function() {
-        
         var numItems =  $('.accord_class').length;
         var i=1;
         while(i <= numItems){
@@ -59,7 +60,7 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
             });
             i++;
         }
-  } );
+        });
         //alert(numItems);
         $(function () {
             var numItems = $('.cart_change').length;
@@ -88,8 +89,8 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                     });
                 })(i,vals)
             i++;
-    }
-});
+            }   
+        });
         
         $(".cart_change").click(function(){
             var mval = $(this).val();
@@ -173,7 +174,7 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                     $("#edit_mob" + i).text("Update");
                     //$("b").text(bid);
                     $("#edit_mob" +i).attr('id', 'uedit_mob'+i);
-                    $('#edit_mob' + i).click( function(){
+                    
                 });
                 $('#uedit_mob' +i).click(function(){
                     var bid = $("#selbid" +i).val();
@@ -190,26 +191,18 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                     var mrp = $("#mrp" +i).val(); 
                     //alert(bid+" "+mdate+" "+mname+" "+desc+" "+wp+" "+stock+" "+discount+" "+mrp);
                     $.ajax({
-                            method:'post',
-                            url:'edash/edash.php?bid='+bid+'&mname='+mname+'&pic=nothing&desc='+desc+'&mdate='+mdate+'&wp='+wp+'&stock='+stock+'&disc='+discount+'&mrp='+mrp+'&control=edit', 
-                            success:function(data){
-                            //$("b").append(data);
-                            location.reload();
-                            } 
-                        });                       
-                    });
+                        method:'post',
+                        url:'edash/edash.php?bid='+bid+'&mname='+mname+'&pic=nothing&desc='+desc+'&mdate='+mdate+'&wp='+wp+'&stock='+stock+'&disc='+discount+'&mrp='+mrp+'&control=edit', 
+                        success:function(data){
+                        //$("b").append(data);
+                        location.reload();
+                        } 
+                    });                       
                 });
-                
             }
-                
-                
-
-            /**/
-            
-            
         });
-});
-    
+                
+        });
     </script>
 </head>
 <body>
@@ -241,7 +234,7 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                             </div>
                             <h3>2. Buying Information</h3>
                             <div>
-                                <p><?php echo"<b>Manufacturing Date - </b> <span id=datei".$id.">".$res['man_date']."</span><br><b>Warranty - </b> <span id=wpi".$id.">".$res['warranty']."</span>"?></p>
+                                <p><?php echo"<b>Manufacturing Date - </b> <span id=datei".$id.">".$res['man_date']."</span><br><b>Warranty - </b> <span id=wpi".$id.">".$res['warranty']."</span><br> <b>Discount -</b><span id=discounti".$id.">".$res['discount']."%</span>"?></p>
                             </div>
                         </div>
                         <p id=mrpi<?php echo $id; ?> class="catd-text"><b>MRP - &#8377;<?php echo $res['mrp'];?></b></p>

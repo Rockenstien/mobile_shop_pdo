@@ -12,28 +12,28 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item" id="dashboard">
         <a class="nav-link" href="index.php">Dashboard <span class="sr-only">(current)</span></a>
       </li>
       <?php
         if($aon){
         ?>
-            <li class="nav-item">
-                <a class="nav-link" href="userinfo.php">View User Info</a>
+            <li class="nav-item" id="uinfo">
+                <a class="nav-link" href="userinfo.php">View User Info </a>
             </li>
         <?php
         }
         else{?>
-            <li class="nav-item">
+            <li class="nav-item" id="cart">
                 <a class="nav-link" href="viewcart.php">View Cart</a>
             </li>
         <?php
             }
         ?>
-      <li class="nav-item">
+      <li class="nav-item" id="orders">
         <a class="nav-link" href="vieworders.php">View Orders</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" id="suggest">
         <a class="nav-link" href="suggestion.html">Suggest</a>
       </li>
       <li class="nav-item">
