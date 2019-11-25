@@ -35,13 +35,20 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
             height:40px;
             width:100%
         }
+        .upbutton{
+            background:rgba(255,255,255,.5);
+            border:1px solid black;
+        }
+        .fa-plus-circle{
+            font-size:25px;
+        }
         
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
-  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   
     <script>
      
@@ -49,6 +56,7 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
         $( function(){
             $("#dashboard").addClass("active");
         });
+        $(".datepicker").datepicker();
         $( function() {
         var numItems =  $('.accord_class').length;
         var i=1;
@@ -61,6 +69,7 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
             i++;
         }
         });
+        
         //alert(numItems);
         $(function () {
             var numItems = $('.cart_change').length;
@@ -151,14 +160,15 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                 $('#edit_mob' + i).click( function(){
                     
                     //Assigning values to textarea to edit
-                    $("#m_name" +i).val($("#m_namei" +i).text());
+                    $("#m_name" +i).val($("#mobname" +i).val());
+                    $("#b_name" +i).val($("#brandname" +i).val());
                     //var pic = $("#pic").val();
                     //var pic = "try";
                     //
                     $("#desc" +i).text($("#desci" +i).text());
-                    //var date_replace = $("#datei" +i).text();
+                    var date_replace = $("#datei" +i).text();
                     //$("#date" +i).val("2018-12-19");
-                    //$("#date" +i).val(date_replace);
+                    $("#date" +i).val(date_replace);
                     //$("b").append(date_replace);
                     $("#wp" +i).val($("#wpi" +i).text().match(/(\d+)/)[0]);
                     $("#stock" +i).val($("#stocki" +i).text().match(/(\d+)/)[0]);
@@ -175,7 +185,7 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                     //$("b").text(bid);
                     $("#edit_mob" +i).attr('id', 'uedit_mob'+i);
                     
-                });
+                
                 $('#uedit_mob' +i).click(function(){
                     var bid = $("#selbid" +i).val();
                     var mdate = $("#date" +i).val();
@@ -194,15 +204,63 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                         method:'post',
                         url:'edash/edash.php?bid='+bid+'&mname='+mname+'&pic=nothing&desc='+desc+'&mdate='+mdate+'&wp='+wp+'&stock='+stock+'&disc='+discount+'&mrp='+mrp+'&control=edit', 
                         success:function(data){
-                        //$("b").append(data);
-                        location.reload();
+                        alert(data);
+                        //location.reload();
                         } 
                     });                       
                 });
+            });  
             }
         });
-                
+        $(function(){
+            var numItems = $('.emc').length;
+            for(let i=1; i<= numItems; i++){
+                $("#img-button" +i).click(function(){
+                    var mname = $("#mobname" +i).val();
+                    //$("#img-button" +i).text("⬆️");
+                    $("#imgupload" +i).trigger('click');
+                    $("#imgupload" +i).change(function(){
+                        var name = document.getElementById("imgupload" +i).files[0].name;
+                        var form_data = new FormData();
+                        var ext = name.split('.').pop().toLowerCase();
+                        if(jQuery.inArray(ext,['jpeg','png','jpg']) == -1){
+                            alert("Extension not supported");
+                        }
+                        var f = document.getElementById("imgupload" +i).files[0];
+                        var fsize = f.size||f.fileSize;
+                        if(fsize > 2000000){
+                            alert("Image File Size is very big");
+                        }
+                        else{
+                            form_data.append("file", document.getElementById('imgupload' +i).files[0]);
+                            form_data.append("mname",mname);
+                            $.ajax({
+                                url:"upload/img_upload.php",
+                                method:"POST",
+                                data: form_data,
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                beforeSend:function(){
+                                    $('#img-loader' +i).removeClass("fa-plus-circle");
+                                    $('#img-loader' +i).addClass("spinner-border");
+                                    
+                                },   
+                                success:function(data){
+                                    //$('#uploaded_image' +i).html(data);
+                                    //$("p").append(data);
+                                    
+                                    setTimeout(function(){
+                                        location.reload();
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+            } 
         });
+    });
     </script>
 </head>
 <body>
@@ -221,46 +279,47 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
 ?>
     <div class="card mb-3">
             <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="..." class="card-img" alt="...">
-                </div>
+                <div class="col-md-4" >
+                    <img src="<?php echo $res['pic'];?>" class="card-img img-responsive" alt="Image of <?php echo $res['mobile_name'];?>">
+                    <?php 
+                        if($aon){ //only for admin?>
+                        <input type="file" id="imgupload<?php echo $id;?>" style="display:none"/> 
+                        <button class="card-img-overlay btn upbutton" id="img-button<?php echo $id; ?>"><i id="img-loader<?php echo $id;?>" class="fas fa-plus-circle"></i></button>
+                    <?php } ?>
+                    </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title"><?php echo $res['b_Name']." - ".$res['mobile_name']; ?></h5>
+                        <h5 class="card-title dn<?php echo $id;?>"><?php echo $res['b_Name']." - ".$res['mobile_name'];?></h5>
+                        <input type="hidden" id="mobname<?php echo $id;?>" value="<?php echo $res['mobile_name'];?>" >
+                        <input type="hidden" id="brandname<?php echo $id;?>" value="<?php echo $res['b_Name'];?>">
                         <div class="accord_class dn<?php echo $id;?>" id="description_accordian<?php echo $id;?>">
                             <h3>1. Description</h3>
                             <div>
-                                <p><?php echo $res['description'];?></p>
+                                <p id="desci<?php echo $id;?>"><?php echo $res['description'];?></p>
                             </div>
                             <h3>2. Buying Information</h3>
                             <div>
                                 <p><?php echo"<b>Manufacturing Date - </b> <span id=datei".$id.">".$res['man_date']."</span><br><b>Warranty - </b> <span id=wpi".$id.">".$res['warranty']."</span><br> <b>Discount -</b><span id=discounti".$id.">".$res['discount']."%</span>"?></p>
                             </div>
                         </div>
-                        <p id=mrpi<?php echo $id; ?> class="catd-text"><b>MRP - &#8377;<?php echo $res['mrp'];?></b></p>
-                        <p id=stocki<?php echo $id; ?> class="card-text"><small class="text-muted">Only <?php echo $res['stock']?> left!</small></p>
-                        <div class="form-group start_disp<?php echo $id;?>">
-                        <?php
-
-                            echo"<select id=selbid".$id." class=\"tdispi form-control tdisp".$id."\" required>";
-                            echo "<option value=>Please Select</option>";
-                            foreach($resbnames as $rows){
-                                echo "<option value=".$rows['b_id'].">".$rows['b_Name']."</option>";
-                            }
-                            echo"</select>";
-                        ?>
+                        <p id=mrpi<?php echo $id; ?> class="catd-text dn<?php echo $id;?>"><b>MRP - &#8377;<?php echo $res['mrp'];?></b></p>
+                        <p id=stocki<?php echo $id; ?> class="card-text dn<?php echo $id;?>"><small class="text-muted">Only <?php echo $res['stock']?> left!</small></p>
+                        <div class="tdispi form-group start_disp<?php echo $id;?>">
+                            <label for=b_name<?php echo $id;?>>Brand Name :</label>
+                            <input class="form-control" id=b_name<?php echo $id;?> class="tdispi tdisp<?php echo $id;?>" readonly>
                         </div>
                         <div class="tdispi form-group start_disp<?php echo $id;?>">
                             <label for=m_name<?php echo $id;?>>Mobile Name :</label>
-                            <input class="form-control" id=m_name<?php echo $id;?> class="tdispi tdisp<?php echo $id;?>" >
+                            <input class="form-control" id=m_name<?php echo $id;?> class="tdispi tdisp<?php echo $id;?>" readonly>
                         </div>
                         <div class="tdispi form-group start_disp<?php echo $id;?>">
                             <label for=desc<?php echo $id;?>>Description :</label>
                             <textarea class="form-control" id=desc<?php echo $id;?> cols=30 rows=10 class="tdispi tdisp<?php echo $id;?>"></textarea>
                         </div>
+                        
                         <div class="tdispi form-group start_disp<?php echo $id;?>">
                             <label for=date<?php echo $id;?>>Date :</label>
-                            <input class="form-control" type=date id=date<?php echo $id;?> class="tdispi tdisp<?php echo $id;?>">
+                            <input class="form-control datepicker"  type=date id=date<?php echo $id;?> class="tdispi tdisp<?php echo $id;?>">
                         </div>
                         <div class="tdispi form-group start_disp<?php echo $id;?>">
                             <label for=wp<?php echo $id;?>>Warranty :</label>
@@ -342,9 +401,6 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
     <button id="add_mob" class="btn btn-secondary">Add</button>
   </div>
 </div><?php }?>
-
-   
-
 </div>    
     
 </body>
