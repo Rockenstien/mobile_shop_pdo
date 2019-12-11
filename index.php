@@ -249,10 +249,10 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                                 success:function(data){
                                     //$('#uploaded_image' +i).html(data);
                                     //$("p").append(data);
-                                    
-                                    setTimeout(function(){
-                                        location.reload();
-                                    });
+                                    alert(data);
+                                    //setTimeout(function(){
+                                        //location.reload();
+                                    //});
                                 }
                             });
                         }
