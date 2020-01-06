@@ -2,6 +2,8 @@
 <?php
     require_once('includes/dbconnect.php');
     require_once('includes/session.php');
+    require_once('login/usercheck.php');
+    require_once('includes/navbar.php');
     if(!$cs->redirect())  header("location:login.php"); //got false, converted true to redirect to login because can't find any session
 ?>
 <!DOCTYPE html>
@@ -12,17 +14,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <style>
+        .col-lg-3{
+            margin-top:80px;
+        }
+    </style>
+        
+    
 </head>
 <body>
     <p></p>
     
-    <table border=1>
-        <tr>
-            <th>Brand</th>
-            <th>Mobile Name</th>
-            <th>Picture</th>
-            <th>Market Price</th>
-        </tr>
+    <div class="container">
+        <div class="row">
         <?php
             $id = 1;$row_present = 0;
             $query = $con->connect()->prepare("CALL get_cid_seca_secq(?)");
@@ -32,13 +36,21 @@
             $query->execute([$res_cid[0]['c_id']]);
             while($res = $query->fetch()){
                 $row_present = 1; //flag for query returning not null
-                    echo"<tr>";
-                    echo"<td name=brand>".$res['b_Name']."</td>";
-                    echo"<td name=val>".$res['mobile_name']."</td>";
-                    echo"<td name=pic> <img src=".$res['pic']." alt=?> </td>";
-                    echo"<td name=mrp> &#8377;".$res['mrp']."</td>";
-                    echo"</tr>";
-                    $id++;
+                    
+                ?>
+               <div class="col-lg-3">
+               <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="<?php echo $res['pic']?>" alt="<?php echo $res['mobile_name']?>">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Brand - <?php echo $res['b_Name'];?></li>
+                    <li class="list-group-item">Mobile - <?php echo $res['mobile_name']?></li>
+                    <li class="list-group-item">MRP - <?php echo $res['mrp']?></li>
+                </ul>
+                </div>
+               </div>
+
+
+                  <?php  $id++;
             }
             if(!$row_present){
                 echo"<tr>";
@@ -46,7 +58,8 @@
                 echo"</tr>";
             }
         ?>
-    </table>
+    </div>
+    </div>
      
     
 </body>

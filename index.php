@@ -42,7 +42,10 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
         .fa-plus-circle{
             font-size:25px;
         }
-        
+        img{
+            width:300px !important;
+            height:400px !important;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
@@ -247,12 +250,12 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
                                     
                                 },   
                                 success:function(data){
-                                    //$('#uploaded_image' +i).html(data);
+                                    $('#uploaded_image' +i).html(data);
                                     //$("p").append(data);
-                                    alert(data);
-                                    //setTimeout(function(){
-                                        //location.reload();
-                                    //});
+                                    //console.log(data);
+                                    setTimeout(function(){
+                                        location.reload();
+                                    },2000);
                                 }
                             });
                         }
@@ -279,15 +282,15 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
 ?>
     <div class="card mb-3">
             <div class="row no-gutters">
-                <div class="col-md-4" >
-                    <img src="<?php echo $res['pic'];?>" class="card-img img-responsive" alt="Image of <?php echo $res['mobile_name'];?>">
+                <div class="col-md-4 col-lg-4" >
+                    <img src="<?php echo $res['pic'];?>" class="card-img img-fluid" alt="Image of <?php echo $res['mobile_name'];?>">
                     <?php 
                         if($aon){ //only for admin?>
                         <input type="file" id="imgupload<?php echo $id;?>" style="display:none"/> 
                         <button class="card-img-overlay btn upbutton" id="img-button<?php echo $id; ?>"><i id="img-loader<?php echo $id;?>" class="fas fa-plus-circle"></i></button>
                     <?php } ?>
                     </div>
-                <div class="col-md-8">
+                <div class="col-md-8 col-lg-8">
                     <div class="card-body">
                         <h5 class="card-title dn<?php echo $id;?>"><?php echo $res['b_Name']." - ".$res['mobile_name'];?></h5>
                         <input type="hidden" id="mobname<?php echo $id;?>" value="<?php echo $res['mobile_name'];?>" >
@@ -357,7 +360,6 @@ if(!$cs->redirect())  header("location:login.php"); //got false, converted true 
     <div class="card text-white bg-primary mb-3">
     <div class="card-header">Add More Phones</div>
     <div class="card-body">
-    <h5 class="card-title">Primary card title</h5>
     <div class="form-group">
     <select id="selbid" class="form-control"required>
         <option value="">Please Select</option>

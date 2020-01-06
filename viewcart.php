@@ -53,7 +53,7 @@
                 
                 <form action="cart/add2cart.php?control=remove&m=rm_v" method="post">
                     <div class="card mr-2" style="width: 20em;">
-                        <img src="..." class="card-img-top" alt="...">
+                        <img src="<?php echo $res['pic']?>" class="card-img-top" alt="photo of <?php echo $res['mobile_name']?>">
                         <div class="card-body">
                         <h5 class="card-title"><?php echo $res['b_Name']." - ".$res['mobile_name'];?></h5>
                     </div>
@@ -74,9 +74,6 @@
                 
 </div>
             <?php     //flag for query returning not null
-                    
-                    
-                    
                     $total_money +=$after_discount_money;
                     $id++;
             }

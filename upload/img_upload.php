@@ -15,10 +15,11 @@ class uploader extends dbconnect{
             $this->name = str_replace(" ", "", trim($this->mname)) .'.' . $ext;
             $this->location = '../upload/images/' . $this->name;  
             $this->uploader();
-            //echo '<img src="'.$location.'" height="150" width="225" class="img-thumbnail" />';
+            echo '<img src="'.$this->location.'" height="150" width="225" class="img-thumbnail" />';
         }
     }
     public function uploader(){
+        if(file_exists("../upload/images/$this->name")) unlink("../upload/images/$this->name");
         $moved=move_uploaded_file($_FILES["file"]["tmp_name"], $this->location);
         $this->location = "upload/images/" . $this->name;
         $query = parent::connect()->prepare("update mobile_data set pic = ? where mobile_name = ?");

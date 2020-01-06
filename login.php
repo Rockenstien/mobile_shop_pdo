@@ -69,7 +69,7 @@ if($cs->redirect()) header("location:index.php");   //true, because can find ses
                 <input type="checkbox" class="form-check-input" id="check">
                 <label class="form-check-label" for="check">Remember Password?</label>
             </div>
-            <button type="submit" class="btn btn-primary ">Submit</button>
+            <button type="submit" class="btn btn-primary ">Login!</button>
             <div id="loading" class="text-primary" role="status">
                 <span class="sr-only">Loading...</span>
             </div>

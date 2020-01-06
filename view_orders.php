@@ -4,6 +4,7 @@ require_once('includes/dbconnect.php');
 //if no or 0 user bug
 require_once('includes/session.php');
 require_once('login/usercheck.php');
+require_once('includes/navbar.php');
 if(!$cs->redirect())  header("location:login.php"); //got false, converted true to redirect to login because can't find any session
 ?>
 <!DOCTYPE html>
