@@ -15,12 +15,12 @@ if($cs->redirect()) header("location:index.php");   //true, because can find ses
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
     $(document).ready(function (){
-        $("#btn").click(function(){
+        $("#sbtn").click(function(){
             var email = $('#validationServer01').val();
             var password = $('#validationServer02').val();
             var secpassword = $('#validationServer03').val();
             var secques = $('#inputState').val();
-            var secans = $('##validationServer03').val();
+            var secans = $('#validationServer03').val();
             if ($("#check").is(":checked")) {  
                 var check = "on";    
             } else {
@@ -36,7 +36,7 @@ if($cs->redirect()) header("location:index.php");   //true, because can find ses
                         $("p").append("Logging you in !! wait");
                         //$("p").append(data);                        
                         setTimeout(function(){
-                            $(location).attr('href', 'index.php');}, 2000);
+                            $(location).attr('href', 'index.php');}, 100);
                     }
                 });
             }
@@ -100,7 +100,7 @@ if($cs->redirect()) header("location:index.php");   //true, because can find ses
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" type="submit">Submit form</button>
+  <button class="btn btn-primary" id="sbtn" type="submit">Submit form</button>
   </div>
         </div>
     </div>

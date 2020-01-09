@@ -33,7 +33,7 @@
                 <a class="nav-link" href="viewcart.php">View Cart</a>
             </li>
             <li class="nav-item" id="suggest">
-        <a class="nav-link" href="suggest.php">Suggest</a>
+        <a class="nav-link" href="suggestion.php">Suggest</a>
       </li>
 
         <?php
